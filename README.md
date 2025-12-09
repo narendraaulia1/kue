@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧁 Kue — Aplikasi Pencatat Keuangan Pribadi
+**Kue** adalah aplikasi pencatat keuangan modern yang membantu pengguna mengelola pemasukan, pengeluaran, dan memahami kondisi keuangan harian dengan lebih mudah.  
+Dibangun menggunakan **Next.js**, **Firebase**, dan **Tailwind CSS**, aplikasi ini berfokus pada kecepatan, keamanan, dan pengalaman pengguna yang nyaman.
 
-## Getting Started
+## ✨ Fitur Utama
 
-First, run the development server:
+### ✔️ Autentikasi Aman
+- Login dengan Email & Password  
+- Login dengan Google  
+- Reset password  
+- Proteksi halaman untuk user login  
+
+### ✔️ Pencatatan Transaksi
+- Tambah pemasukan dan pengeluaran  
+- Kategori dan grup transaksi  
+- Warna hijau = pemasukan, merah = pengeluaran  
+- Data tersimpan real-time di Firestore  
+
+### ✔️ Dashboard Modern
+- Ringkasan pemasukan & pengeluaran  
+- Daftar transaksi terbaru  
+- Tampilan dark mode elegan  
+
+### ✔️ Pengaturan Akun
+- Edit nama pengguna  
+- Preferensi tampilan  
+- Logout  
+
+## 🎯 Visi & Misi
+
+### **Visi**
+Menjadi aplikasi pencatat keuangan paling sederhana dan nyaman digunakan oleh siapa saja.
+
+### **Misi**
+1. Membantu pengguna membangun kebiasaan finansial sehat.  
+2. Menyediakan alat pencatatan yang cepat, ringan, dan mudah dipahami.  
+3. Menghadirkan pengalaman pengguna yang aman dan modern.  
+
+## 🛠️ Tech Stack
+
+- **Next.js 14 (App Router)**  
+- **Firebase Authentication & Firestore**  
+- **Tailwind CSS**  
+- **Lucide React Icons**  
+- **Vercel Deployment**  
+
+## 📦 Instalasi
+
+Clone repository:
+
+```bash
+git clone https://github.com/your-username/kue.git
+cd kue
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Jalankan development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Akses aplikasi di:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔐 Konfigurasi Environment Variable
 
-## Learn More
+Buat file `.env.local` dan masukkan konfigurasi Firebase:
 
-To learn more about Next.js, take a look at the following resources:
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=xxxx
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=xxxx
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=xxxx
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=xxxx
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=xxxx
+NEXT_PUBLIC_FIREBASE_APP_ID=xxxx
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔥 Firestore Security Rules
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Gunakan rules berikut agar data aman:
 
-## Deploy on Vercel
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    match /users/{userId}/transactions/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Deploy ke Vercel
+
+1. Push project ke GitHub  
+2. Masuk ke https://vercel.com  
+3. Import repository  
+4. Tambahkan environment variables  
+5. Klik **Deploy**  
+
+## 🧱 Struktur Folder
+
+```
+app/
+ ├─ login/
+ ├─ register/
+ ├─ dashboard/
+ ├─ settings/
+ ├─ layout.js
+ └─ page.js
+
+components/
+lib/
+ ├─ firebase.js
+ └─ auth-context.js
+
+public/
+```
+
+## 📈 Rencana Pengembangan
+
+- Export data ke CSV / PDF  
+- Grafik keuangan  
+- Notifikasi pengingat transaksi  
+- Mode offline  
+- Insight AI (opsional)  
+
+## 🧁 Makna Nama “Kue”
+
+Nama **Kue** menggambarkan konsep sederhana dan manis—seperti aplikasi ini yang ingin membantu pengguna memahami potongan demi potongan keuangan mereka, hingga menjadi gambaran besar yang utuh.
+
+## ❤️ Pengembang
+
+Aplikasi ini dikembangkan dengan fokus pada kesederhanaan, keamanan, dan kenyamanan pengguna.  
+Terinspirasi dari kebutuhan pencatat keuangan yang cepat, ringan, dan mudah dipakai.
